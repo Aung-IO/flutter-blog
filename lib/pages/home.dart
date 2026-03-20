@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_blog/core/constants/app_colors.dart';
 import 'package:flutter_blog/pages/create.dart';
 import 'package:flutter_blog/pages/feat.dart';
 
@@ -81,14 +82,14 @@ class _HomeScreenState extends State<HomeScreen> {
               activeTab.title,
               style: theme.textTheme.headlineSmall?.copyWith(
                 fontWeight: FontWeight.w800,
-                color: const Color(0xFF0F172A),
+                color: AppColors.textPrimary,
               ),
             ),
             const SizedBox(height: 4),
             Text(
               activeTab.subtitle,
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: const Color(0xFF64748B),
+                color: AppColors.textSecondary,
               ),
             ),
           ],
@@ -98,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.only(right: 20),
             child: CircleAvatar(
               radius: 22,
-              backgroundColor: const Color(0xFFE8EAF6),
+              backgroundColor: AppColors.surfaceAccent,
               child: Icon(
                 Icons.notifications_none_rounded,
                 color: theme.colorScheme.primary,
@@ -116,11 +117,11 @@ class _HomeScreenState extends State<HomeScreen> {
         minimum: const EdgeInsets.fromLTRB(20, 0, 20, 20),
         child: DecoratedBox(
           decoration: BoxDecoration(
-            color: const Color(0xFF0F172A),
+            color: AppColors.textPrimary,
             borderRadius: BorderRadius.circular(28),
             boxShadow: const [
               BoxShadow(
-                color: Color(0x2618273D),
+                color: AppColors.shadow,
                 blurRadius: 28,
                 offset: Offset(0, 20),
               ),
@@ -130,30 +131,33 @@ class _HomeScreenState extends State<HomeScreen> {
             data: NavigationBarThemeData(
               iconTheme: WidgetStateProperty.resolveWith((states) {
                 if (states.contains(WidgetState.selected)) {
-                  return const IconThemeData(color: Colors.white, size: 24);
+                  return const IconThemeData(color: AppColors.onDark, size: 24);
                 }
 
-                return const IconThemeData(color: Color(0xFFCBD5E1), size: 22);
+                return const IconThemeData(
+                  color: AppColors.iconInactive,
+                  size: 22,
+                );
               }),
               labelTextStyle: WidgetStateProperty.resolveWith((states) {
                 if (states.contains(WidgetState.selected)) {
                   return const TextStyle(
-                    color: Colors.white,
+                    color: AppColors.onDark,
                     fontWeight: FontWeight.w700,
                   );
                 }
 
                 return const TextStyle(
-                  color: Color(0xFFCBD5E1),
+                  color: AppColors.iconInactive,
                   fontWeight: FontWeight.w600,
                 );
               }),
             ),
             child: NavigationBar(
               height: 76,
-              backgroundColor: Colors.transparent,
-              indicatorColor: const Color(0xFF283593),
-              surfaceTintColor: Colors.transparent,
+              backgroundColor: AppColors.transparent,
+              indicatorColor: AppColors.primary,
+              surfaceTintColor: AppColors.transparent,
               labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
               selectedIndex: _selectedIndex,
               onDestinationSelected: (index) {
@@ -202,7 +206,11 @@ class _DashboardTab extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(32),
             gradient: const LinearGradient(
-              colors: [Color(0xFF5C6BC0), Color(0xFF3949AB), Color(0xFF1A237E)],
+              colors: [
+                AppColors.primaryLight,
+                AppColors.primaryMedium,
+                AppColors.primaryDark,
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -216,13 +224,13 @@ class _DashboardTab extends StatelessWidget {
                   vertical: 8,
                 ),
                 decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.16),
+                  color: AppColors.onDark.withValues(alpha: 0.16),
                   borderRadius: BorderRadius.circular(999),
                 ),
                 child: const Text(
                   'Editorial dashboard',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: AppColors.onDark,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -231,7 +239,7 @@ class _DashboardTab extends StatelessWidget {
               Text(
                 'Keep your blog active with clear momentum and a sharper reading flow.',
                 style: theme.textTheme.headlineSmall?.copyWith(
-                  color: Colors.white,
+                  color: AppColors.onDark,
                   fontWeight: FontWeight.w800,
                   height: 1.2,
                 ),
@@ -240,7 +248,7 @@ class _DashboardTab extends StatelessWidget {
               Text(
                 'Track what is performing, continue drafts, and surface the next story to publish.',
                 style: theme.textTheme.bodyLarge?.copyWith(
-                  color: const Color(0xFFE8EAF6),
+                  color: AppColors.surfaceAccent,
                   height: 1.45,
                 ),
               ),
@@ -332,11 +340,11 @@ class _ProfileTab extends StatelessWidget {
               children: [
                 const CircleAvatar(
                   radius: 36,
-                  backgroundColor: Color(0xFFE8EAF6),
+                  backgroundColor: AppColors.surfaceAccent,
                   child: Icon(
                     Icons.person_rounded,
                     size: 36,
-                    color: Color(0xFF283593),
+                    color: AppColors.primary,
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -350,7 +358,7 @@ class _ProfileTab extends StatelessWidget {
                 Text(
                   'Building clean mobile writing experiences.',
                   style: theme.textTheme.bodyMedium?.copyWith(
-                    color: const Color(0xFF64748B),
+                    color: AppColors.textSecondary,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -408,7 +416,7 @@ class _StatChip extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.14),
+        color: AppColors.onDark.withValues(alpha: 0.14),
         borderRadius: BorderRadius.circular(22),
       ),
       child: Column(
@@ -416,13 +424,13 @@ class _StatChip extends StatelessWidget {
           Text(
             value,
             style: const TextStyle(
-              color: Colors.white,
+              color: AppColors.onDark,
               fontSize: 20,
               fontWeight: FontWeight.w800,
             ),
           ),
           const SizedBox(height: 4),
-          Text(label, style: const TextStyle(color: Color(0xFFE8EAF6))),
+          Text(label, style: const TextStyle(color: AppColors.surfaceAccent)),
         ],
       ),
     );
@@ -452,8 +460,8 @@ class _ActionCard extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 24,
-              backgroundColor: const Color(0xFFE8EAF6),
-              child: Icon(icon, color: const Color(0xFF283593)),
+              backgroundColor: AppColors.surfaceAccent,
+              child: Icon(icon, color: AppColors.primary),
             ),
             const SizedBox(height: 18),
             Text(
@@ -466,7 +474,7 @@ class _ActionCard extends StatelessWidget {
             Text(
               subtitle,
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: const Color(0xFF64748B),
+                color: AppColors.textSecondary,
                 height: 1.35,
               ),
             ),
@@ -490,7 +498,7 @@ class _MetricTile extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 16),
       decoration: BoxDecoration(
-        color: const Color(0xFFF8FAFC),
+        color: AppColors.surfaceMuted,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
@@ -505,7 +513,7 @@ class _MetricTile extends StatelessWidget {
           Text(
             label,
             style: theme.textTheme.bodySmall?.copyWith(
-              color: const Color(0xFF64748B),
+              color: AppColors.textSecondary,
             ),
           ),
         ],
@@ -533,8 +541,8 @@ class _ProfileOption extends StatelessWidget {
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
         leading: CircleAvatar(
-          backgroundColor: const Color(0xFFE8EAF6),
-          child: Icon(icon, color: const Color(0xFF283593)),
+          backgroundColor: AppColors.surfaceAccent,
+          child: Icon(icon, color: AppColors.primary),
         ),
         title: Text(
           title,
@@ -547,7 +555,7 @@ class _ProfileOption extends StatelessWidget {
           child: Text(
             subtitle,
             style: theme.textTheme.bodyMedium?.copyWith(
-              color: const Color(0xFF64748B),
+              color: AppColors.textSecondary,
             ),
           ),
         ),

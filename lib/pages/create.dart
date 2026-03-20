@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_blog/core/constants/app_colors.dart';
 import 'package:flutter_blog/models/message.dart';
 import 'package:flutter_blog/repositories/message_repository.dart';
 import 'package:image_picker/image_picker.dart';
@@ -162,7 +163,7 @@ class _CreateMessagePageState extends State<CreateMessagePage> {
                         ? 'Update the details below and save.'
                         : 'Fill in the title, body, and an optional image.',
                     style: theme.textTheme.bodyLarge?.copyWith(
-                      color: const Color(0xFF64748B),
+                      color: AppColors.textSecondary,
                       height: 1.4,
                     ),
                   ),
@@ -211,7 +212,7 @@ class _CreateMessagePageState extends State<CreateMessagePage> {
                               width: 20,
                               child: CircularProgressIndicator(
                                 strokeWidth: 2,
-                                color: Colors.white,
+                                color: AppColors.onDark,
                               ),
                             )
                           : Text(_isEditing ? 'Update' : 'Save message'),
@@ -230,14 +231,14 @@ class _CreateMessagePageState extends State<CreateMessagePage> {
     return InputDecoration(
       hintText: hint,
       filled: true,
-      fillColor: const Color(0xFFF8FAFC),
+      fillColor: AppColors.surfaceMuted,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(18),
-        borderSide: const BorderSide(color: Color(0xFFE2E8F0)),
+        borderSide: const BorderSide(color: AppColors.border),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(18),
-        borderSide: const BorderSide(color: Color(0xFFE2E8F0)),
+        borderSide: const BorderSide(color: AppColors.border),
       ),
       contentPadding: const EdgeInsets.all(16),
     );
@@ -292,11 +293,15 @@ class _ImagePickerWidget extends StatelessWidget {
               onTap: onRemove,
               child: Container(
                 decoration: const BoxDecoration(
-                  color: Colors.black54,
+                  color: AppColors.black54,
                   shape: BoxShape.circle,
                 ),
                 padding: const EdgeInsets.all(6),
-                child: const Icon(Icons.close, color: Colors.white, size: 18),
+                child: const Icon(
+                  Icons.close,
+                  color: AppColors.onDark,
+                  size: 18,
+                ),
               ),
             ),
           ),
@@ -309,9 +314,9 @@ class _ImagePickerWidget extends StatelessWidget {
       child: Container(
         height: 120,
         decoration: BoxDecoration(
-          color: const Color(0xFFF8FAFC),
+          color: AppColors.surfaceMuted,
           borderRadius: BorderRadius.circular(18),
-          border: Border.all(color: const Color(0xFFE2E8F0)),
+          border: Border.all(color: AppColors.border),
         ),
         child: const Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -319,12 +324,12 @@ class _ImagePickerWidget extends StatelessWidget {
             Icon(
               Icons.add_photo_alternate_outlined,
               size: 36,
-              color: Color(0xFF94A3B8),
+              color: AppColors.textMuted,
             ),
             SizedBox(height: 8),
             Text(
               'Tap to attach an image',
-              style: TextStyle(color: Color(0xFF94A3B8)),
+              style: TextStyle(color: AppColors.textMuted),
             ),
           ],
         ),

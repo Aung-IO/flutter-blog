@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_blog/core/constants/app_colors.dart';
 import 'package:flutter_blog/models/message.dart';
 import 'package:flutter_blog/pages/create.dart';
 import 'package:flutter_blog/repositories/message_repository.dart';
@@ -43,7 +44,7 @@ class MessageFeatState extends State<MessageFeat> {
         builder: (_) => Scaffold(
           appBar: AppBar(
             title: const Text('Edit Message'),
-            backgroundColor: Colors.transparent,
+            backgroundColor: AppColors.transparent,
             elevation: 0,
           ),
           body: CreateMessagePage(message: msg),
@@ -66,7 +67,7 @@ class MessageFeatState extends State<MessageFeat> {
           ),
           FilledButton(
             onPressed: () => Navigator.pop(ctx, true),
-            style: FilledButton.styleFrom(backgroundColor: Colors.red),
+            style: FilledButton.styleFrom(backgroundColor: AppColors.danger),
             child: const Text('Delete'),
           ),
         ],
@@ -177,7 +178,7 @@ class _MessageCard extends StatelessWidget {
                 Text(
                   message.message,
                   style: theme.textTheme.bodyMedium?.copyWith(
-                    color: const Color(0xFF64748B),
+                    color: AppColors.textSecondary,
                     height: 1.4,
                   ),
                   maxLines: 4,
@@ -201,7 +202,9 @@ class _MessageCard extends StatelessWidget {
                   onPressed: onDelete,
                   icon: const Icon(Icons.delete_outline, size: 18),
                   label: const Text('Delete'),
-                  style: TextButton.styleFrom(foregroundColor: Colors.red),
+                  style: TextButton.styleFrom(
+                    foregroundColor: AppColors.danger,
+                  ),
                 ),
               ],
             ),

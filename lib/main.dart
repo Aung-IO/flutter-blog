@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_blog/core/constants/app_colors.dart';
 import 'package:flutter_blog/pages/home.dart';
 
 void main() => runApp(const FlutterBlogApp());
@@ -9,7 +10,7 @@ class FlutterBlogApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = ColorScheme.fromSeed(
-      seedColor: const Color(0xFF283593),
+      seedColor: AppColors.primary,
       brightness: Brightness.light,
     );
 
@@ -19,16 +20,16 @@ class FlutterBlogApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: colorScheme,
-        scaffoldBackgroundColor: const Color(0xFFF4F7FB),
+        scaffoldBackgroundColor: AppColors.appBackground,
         appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.transparent,
-          foregroundColor: Color(0xFF0F172A),
+          backgroundColor: AppColors.transparent,
+          foregroundColor: AppColors.textPrimary,
           elevation: 0,
           centerTitle: false,
         ),
         cardTheme: CardThemeData(
           elevation: 0,
-          color: Colors.white,
+          color: AppColors.surface,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(24),
           ),
