@@ -6,6 +6,7 @@ import 'package:flutter_blog/core/constants/app_colors.dart';
 import 'package:flutter_blog/models/message.dart';
 import 'package:flutter_blog/repositories/message_repository.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 class CreateMessagePage extends StatefulWidget {
   const CreateMessagePage({super.key, this.message, this.onSaved});
@@ -49,7 +50,9 @@ class _CreateMessagePageState extends State<CreateMessagePage> {
     try {
       final picked = await _picker.pickImage(source: source, imageQuality: 80);
       if (picked != null && mounted) {
-        setState(() => _imagePath = picked.path);
+        final persistedPath = await _persistPickedImage(picked);
+        if (!mounted) return;
+        setState(() => _imagePath = persistedPath);
       }
     } on PlatformException catch (e) {
       if (!mounted) return;
@@ -61,7 +64,33 @@ class _CreateMessagePageState extends State<CreateMessagePage> {
           behavior: SnackBarBehavior.floating,
         ),
       );
+    } on FileSystemException catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Unable to process selected image: ${e.message}'),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
     }
+  }
+
+  Future<String> _persistPickedImage(XFile picked) async {
+    final appDir = await getApplicationDocumentsDirectory();
+    final imageDir = Directory('${appDir.path}/message_images');
+    if (!await imageDir.exists()) {
+      await imageDir.create(recursive: true);
+    }
+
+    final extension = picked.name.contains('.')
+        ? picked.name.substring(picked.name.lastIndexOf('.'))
+        : '.jpg';
+    final targetPath =
+        '${imageDir.path}/${DateTime.now().millisecondsSinceEpoch}$extension';
+
+    final bytes = await picked.readAsBytes();
+    final savedFile = await File(targetPath).writeAsBytes(bytes, flush: true);
+    return savedFile.path;
   }
 
   Future<void> _openImageSource(ImageSource source) async {
@@ -275,15 +304,30 @@ class _ImagePickerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (imagePath != null) {
+      final imageFile = File(imagePath!);
       return Stack(
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(18),
             child: Image.file(
-              File(imagePath!),
+              imageFile,
               height: 200,
               width: double.infinity,
               fit: BoxFit.cover,
+              errorBuilder: (_, __, ___) => Container(
+                height: 200,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: AppColors.surfaceMuted,
+                  borderRadius: BorderRadius.circular(18),
+                  border: Border.all(color: AppColors.border),
+                ),
+                alignment: Alignment.center,
+                child: const Text(
+                  'Image file is unavailable.',
+                  style: TextStyle(color: AppColors.textMuted),
+                ),
+              ),
             ),
           ),
           Positioned(

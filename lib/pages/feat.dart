@@ -17,6 +17,7 @@ class MessageFeatState extends State<MessageFeat> {
   List<Message> _messages = [];
   bool _loading = true;
 
+  // load all messages from the database when the widget is first created
   @override
   void initState() {
     super.initState();
